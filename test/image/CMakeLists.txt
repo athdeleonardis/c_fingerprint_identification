@@ -1,0 +1,5 @@
+add_executable(test_image test_image.c)
+target_link_libraries(test_image PRIVATE c_fingerprint_identification_lib)
+
+add_executable(test_bit_image test_bit_image.c)
+target_link_libraries(test_bit_image PRIVATE c_fingerprint_identification_lib)
