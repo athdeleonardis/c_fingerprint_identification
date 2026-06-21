@@ -35,16 +35,16 @@ int main(int argc, char *argv[]) {
         printf("Bit-ified.\n");
         bit_image_print(&bit_image);
 
-        snprintf(filename, 50, "out/test/test_bit_image/%s.png", argv[i]);
+        snprintf(filename, 50, "out/test/bit_image/%s.png", argv[i]);
         bit_image_write(&bit_image, filename);
         printf("Written.\n");
 
         bit_image_invert(&bit_image);
         printf("Inverted.\n");
-        snprintf(filename, 50, "out/test/test_bit_image/%s-inverted.png", argv[i]);
+        snprintf(filename, 50, "out/test/bit_image/%s-inverted.png", argv[i]);
         bit_image_write(&bit_image, filename);
         printf("Written.\n");
-        
+
         image_free(&image);
         free(bit_image.bytes);
     }

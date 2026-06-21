@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
         snprintf(filename, 50, "in/%s.png", argv[i]);
         image_load(&image, filename);
         printf("Loaded image. Width: %d, Height: %d, Channels: %d", image.width, image.height, image.channels);
-        snprintf(filename, 50, "out/test/test_image/%s.png", argv[i]);
+        snprintf(filename, 50, "out/test/image/%s.png", argv[i]);
         image_write(&image, filename);
         image_free(&image);
     }

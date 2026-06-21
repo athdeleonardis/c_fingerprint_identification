@@ -1,0 +1,2 @@
+add_executable(test_thinning_zhang_suen test_thinning_zhang_suen.c)
+target_link_libraries(test_thinning_zhang_suen PRIVATE c_fingerprint_identification_lib)
