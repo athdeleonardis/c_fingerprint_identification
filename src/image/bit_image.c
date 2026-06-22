@@ -1,5 +1,15 @@
 #include "bit_image.h"
 
+
+// Cell neighbour labellings
+// 7 0 1
+// 6 x 2
+// 5 4 3
+
+//                                 neighbour   0,  1,  2,  3,  4,  5,  6,  7
+uint32_t _bit_image_neighbour_offset_x[] = {   0,  1,  1,  1,  0, -1, -1, -1 };
+uint32_t _bit_image_neighbour_offset_y[] = {  -1, -1,  0,  1,  1,  1,  0, -1 };
+
 typedef uint8_t (*bit_from_image_t)(image_t *image, uint32_t index, uint8_t threshold);
 
 uint8_t _bit_from_image_1_channel(image_t *image, uint32_t index, uint8_t threshold) {
@@ -28,6 +38,16 @@ uint8_t bit_image_bit_from_index(bit_image_t *image, uint32_t index) {
     uint32_t byte_index = index / 8;
     uint8_t bit_offset = index % 8;
     return (image->bytes[byte_index] & (1 << bit_offset)) > 0;
+}
+
+void bit_image_neighbours_from_coord(bit_image_t *image, uint32_t x, uint32_t y, uint8_t neighbours[]) {
+    for (uint8_t i = 0; i < 8; i++) {
+        neighbours[i] = bit_image_pixel_from_coord(
+            image,
+            x + _bit_image_neighbour_offset_x[i],
+            y + _bit_image_neighbour_offset_y[i]
+        );
+    }
 }
 
 void bit_image_set_pixel_zero(bit_image_t *image, uint32_t x, uint32_t y) {
@@ -99,4 +119,22 @@ void bit_image_write(bit_image_t *bit_image, const char *file) {
     image_t image = { .width=bit_image->width, .height=bit_image->height, .channels=1, .pixels=buffer };
     image_write(&image, file);
     free(buffer);
+}
+
+void bit_image_to_image(bit_image_t *bit_image, image_t *image, uint8_t channels, uint8_t do_allocate) {
+    image->width = bit_image->width;
+    image->height = bit_image->height;
+    image->channels = channels;
+    uint32_t index_max = bit_image->width * bit_image->height * channels;
+
+    if (do_allocate) {
+        image->pixels = (uint8_t *)malloc(index_max);
+    }
+
+    for (uint32_t index = 0; index < index_max; index += channels) {
+        uint8_t value = bit_image_bit_from_index(bit_image, index / channels) * 255;
+        for (uint32_t index_offset = 0; index_offset < channels; index_offset++) {
+            image->pixels[index + index_offset] = value;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include "destair_holt.h"
 #include "thinning_zhang_suen.h"
 
 // Cell neighbour labellings
@@ -144,4 +145,6 @@ uint8_t thinning_zhang_suen_pass(bit_image_t *bit_image, bit_image_t *to_remove)
 void thinning_zhang_suen(bit_image_t *bit_image, bit_image_t *to_remove) {
     int iteration = 0;
     while (thinning_zhang_suen_pass(bit_image, to_remove));
+    destair_holt(bit_image, to_remove);
+    thinning_zhang_suen_update(bit_image, to_remove);
 }

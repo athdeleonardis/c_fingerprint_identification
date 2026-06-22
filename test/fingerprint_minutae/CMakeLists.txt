@@ -1,0 +1,2 @@
+add_executable(test_fingerprint_minutae test_fingerprint_minutae.c)
+target_link_libraries(test_fingerprint_minutae PRIVATE c_fingerprint_identification_lib)

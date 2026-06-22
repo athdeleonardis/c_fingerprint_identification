@@ -4,7 +4,9 @@ add_library(
         image/stb.c
         image/image.c
         image/bit_image.c
+        thinning/destair_holt.c
         thinning/thinning_zhang_suen.c
+        fingerprint_minutae/fingerprint_minutae.c
 )
 
 target_include_directories(
