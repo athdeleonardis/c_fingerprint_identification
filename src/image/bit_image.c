@@ -104,6 +104,12 @@ void bit_image_invert(bit_image_t *bit_image) {
     }
 }
 
+void bit_image_remove_all(bit_image_t *bit_image, bit_image_t *to_remove) {
+    for (uint32_t byte_index = 0; byte_index < bit_image->num_bytes; byte_index++) {
+        bit_image->bytes[byte_index] &= ~to_remove->bytes[byte_index];
+    }
+}
+
 void bit_image_clear(bit_image_t *bit_image) {
     for (uint32_t byte_index = 0; byte_index < bit_image->num_bytes; byte_index++) {
         bit_image->bytes[byte_index] = 0;

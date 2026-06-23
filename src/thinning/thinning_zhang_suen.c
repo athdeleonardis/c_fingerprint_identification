@@ -121,23 +121,17 @@ uint8_t thinning_zhang_suen_pass_2(bit_image_t *bit_image, bit_image_t *to_remov
     return unfinished;
 }
 
-void thinning_zhang_suen_update(bit_image_t *bit_image, bit_image_t *to_remove) {
-    for (uint32_t byte_index = 0; byte_index < bit_image->num_bytes; byte_index++) {
-        bit_image->bytes[byte_index] &= ~to_remove->bytes[byte_index];
-    }
-}
-
 uint8_t thinning_zhang_suen_pass(bit_image_t *bit_image, bit_image_t *to_remove) {
     bit_image_clear(to_remove);
     uint8_t unfinished1 = thinning_zhang_suen_pass_1(bit_image, to_remove);
     if (unfinished1) {
-        thinning_zhang_suen_update(bit_image, to_remove);
+        bit_image_remove_all(bit_image, to_remove);
     }
 
     bit_image_clear(to_remove);
     uint8_t unfinished2 = thinning_zhang_suen_pass_2(bit_image, to_remove);
     if (unfinished2) {
-        thinning_zhang_suen_update(bit_image, to_remove);
+        bit_image_remove_all(bit_image, to_remove);
     }
     return unfinished1 || unfinished2;
 }
@@ -146,5 +140,4 @@ void thinning_zhang_suen(bit_image_t *bit_image, bit_image_t *to_remove) {
     int iteration = 0;
     while (thinning_zhang_suen_pass(bit_image, to_remove));
     destair_holt(bit_image, to_remove);
-    thinning_zhang_suen_update(bit_image, to_remove);
 }
