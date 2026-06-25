@@ -4,8 +4,9 @@ add_library(
         image/stb.c
         image/image.c
         image/bit_image.c
-        thinning/destair_holt.c
-        thinning/thinning_zhang_suen.c
+        image_processing/destair_holt.c
+        image_processing/morphological_image_processing.c
+        image_processing/thinning_zhang_suen.c
         fingerprint_minutae/fingerprint_minutae.c
 )
 
@@ -14,5 +15,5 @@ target_include_directories(
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/image
-        ${CMAKE_CURRENT_SOURCE_DIR}/thinning
+        ${CMAKE_CURRENT_SOURCE_DIR}/image_processing
 )

@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
         bit_image_from_image(&bit_image, &image, 126, 1);
         printf("Bit-ified.\n");
-        bit_image_print(&bit_image);
+        // bit_image_print(&bit_image);
 
         snprintf(filename, 50, "out/test/bit_image/%s.png", argv[i]);
         bit_image_write(&bit_image, filename);

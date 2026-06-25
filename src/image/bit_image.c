@@ -57,6 +57,13 @@ void bit_image_set_pixel_zero(bit_image_t *image, uint32_t x, uint32_t y) {
     image->bytes[byte_index] &= ~(1 << bit_offset);
 }
 
+void bit_image_set_pixel_one(bit_image_t *bit_image, uint32_t x, uint32_t y) {
+    uint32_t index = x + bit_image->width * y;
+    uint32_t byte_index = index / 8;
+    uint32_t bit_offset = index % 8;
+    bit_image->bytes[byte_index] |= 1 << bit_offset;
+}
+
 void bit_image_from_image(bit_image_t *bit_image, image_t *image, uint8_t threshold, uint8_t do_allocate) {
     bit_image->width = image->width;
     bit_image->height = image->height;
@@ -107,6 +114,12 @@ void bit_image_invert(bit_image_t *bit_image) {
 void bit_image_remove_all(bit_image_t *bit_image, bit_image_t *to_remove) {
     for (uint32_t byte_index = 0; byte_index < bit_image->num_bytes; byte_index++) {
         bit_image->bytes[byte_index] &= ~to_remove->bytes[byte_index];
+    }
+}
+
+void bit_image_add_all(bit_image_t *bit_image, bit_image_t *to_add) {
+    for (uint32_t byte_index = 0; byte_index < bit_image->num_bytes; byte_index++) {
+        bit_image->bytes[byte_index] |= to_add->bytes[byte_index];
     }
 }
 

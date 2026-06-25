@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../../src/thinning/thinning_zhang_suen.h"
+#include "../../src/image_processing/thinning_zhang_suen.h"
 
 int main(int argc, char *argv[]) {
     if (argc < 3) {

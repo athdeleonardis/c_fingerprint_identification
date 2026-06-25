@@ -1,3 +1,3 @@
 add_subdirectory(image)
-add_subdirectory(thinning)
+add_subdirectory(image_processing)
 add_subdirectory(fingerprint_minutae)
