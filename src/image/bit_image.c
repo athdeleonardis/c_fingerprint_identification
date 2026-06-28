@@ -105,6 +105,27 @@ void bit_image_from_image(bit_image_t *bit_image, image_t *image, uint8_t thresh
     }
 }
 
+void bit_image_from_float_image(bit_image_t *bit_image, float_image_t *float_image, float threshold, uint8_t do_allocate) {
+    bit_image->width = float_image->width;
+    bit_image->height = float_image->height;
+
+    bit_image->num_bytes = bit_image->width * bit_image->height;
+    bit_image->num_bytes = bit_image->num_bytes / 8 + (bit_image->num_bytes % 8 > 0);
+    if (do_allocate) {
+        bit_image->bytes = (uint8_t *)malloc(bit_image->num_bytes);
+    }
+
+    uint32_t index_max = bit_image->width * bit_image->height;
+    for (uint32_t index = 0; index < index_max; index++) {
+        uint32_t byte_index = index / 8;
+        uint8_t bit_offset = index % 8;
+        if (bit_offset == 0) {
+            bit_image->bytes[byte_index] = 0;
+        }
+        bit_image->bytes[byte_index] |= (float_image->values[index] > threshold) << bit_offset;
+    }
+}
+
 void bit_image_invert(bit_image_t *bit_image) {
     for (uint32_t byte_index = 0; byte_index < bit_image->num_bytes; byte_index++) {
         bit_image->bytes[byte_index] = ~bit_image->bytes[byte_index];

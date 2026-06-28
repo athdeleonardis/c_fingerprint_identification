@@ -8,6 +8,7 @@ file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/out/test/bit_image")
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/out/test/thinning_zhang_suen")
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/out/test/morphological_image_processing")
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/out/test/fingerprint_minutae")
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/out/test/gradient_sobel")
 
 add_subdirectory(src)
 add_subdirectory(test)

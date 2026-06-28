@@ -4,10 +4,13 @@ add_library(
         image/stb.c
         image/image.c
         image/bit_image.c
+        image/float_image.c
         image_processing/destair_holt.c
+        image_processing/gradient_sobel.c
         image_processing/morphological_image_processing.c
         image_processing/thinning_zhang_suen.c
         fingerprint_minutae/fingerprint_minutae.c
+        util/float_array.c
 )
 
 target_include_directories(
@@ -16,4 +19,5 @@ target_include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/image
         ${CMAKE_CURRENT_SOURCE_DIR}/image_processing
+        ${CMAKE_CURRENT_SOURCE_DIR}/util
 )

@@ -3,3 +3,6 @@ target_link_libraries(test_thinning_zhang_suen PRIVATE c_fingerprint_identificat
 
 add_executable(test_morphological_image_processing test_morphological_image_processing.c)
 target_link_libraries(test_morphological_image_processing PRIVATE c_fingerprint_identification_lib)
+
+add_executable(test_gradient_sobel test_gradient_sobel.c)
+target_link_libraries(test_gradient_sobel PRIVATE c_fingerprint_identification_lib)

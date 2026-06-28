@@ -1,5 +1,34 @@
 #include "image.h"
 
+uint8_t _image_to_grayscale_cell_1(image_t *image, uint32_t index) {
+    return image->pixels[index];
+}
+
+uint8_t _image_to_grayscale_cell_2(image_t *image, uint32_t index) {
+    return ((uint16_t)image->pixels[index]) * image->pixels[index + 1] / 255;
+}
+
+uint8_t _image_to_grayscale_cell_3(image_t *image, uint32_t index) {
+    return ((uint16_t)image->pixels[index] + image->pixels[index + 1] + image->pixels[index + 2]) / 3;
+}
+
+uint8_t _image_to_grayscale_cell_4(image_t *image, uint32_t index) {
+    return ((uint32_t)image->pixels[index] + image->pixels[index + 1] + image->pixels[index + 2]) * image->pixels[index + 3] / (3 * 255);
+}
+
+uint8_t _image_to_grayscale_cell(image_t *image, uint32_t index) {
+    switch (image->channels) {
+        case 1:
+            return _image_to_grayscale_cell_1(image, index);
+        case 2:
+            return _image_to_grayscale_cell_2(image, index);
+        case 3:
+            return _image_to_grayscale_cell_3(image, index);
+        case 4:
+            return _image_to_grayscale_cell_4(image, index);            
+    }
+}
+
 uint8_t image_load(image_t *image, const char *file) {
     int width;
     int height;
@@ -22,6 +51,21 @@ void image_set_pixel(image_t *image, uint32_t x, uint32_t y, uint8_t c1, uint8_t
     }
     if (image->channels > 3) {
         image->pixels[index + 3] = c4;
+    }
+}
+
+void image_to_grayscale(image_t *image_in, image_t *image_out, uint8_t do_allocate) {
+    image_out->width = image_in->width;
+    image_out->height = image_in->height;
+    image_out->channels = 1;
+    uint32_t index_max = image_in->width * image_in->height;
+
+    if (do_allocate) {
+        image_out->pixels = (uint8_t *)malloc(index_max);
+    }
+
+    for (uint32_t index = 0; index < index_max; index++) {
+        image_out->pixels[index] = _image_to_grayscale_cell(image_in, index * image_in->channels);
     }
 }
 

@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "image.h"
+#include "float_image.h"
 
 typedef struct bit_image {
     uint32_t width;
@@ -17,6 +18,7 @@ void bit_image_neighbours_from_coord(bit_image_t *image, uint32_t x, uint32_t y,
 void bit_image_set_pixel_zero(bit_image_t *bit_image, uint32_t x, uint32_t y);
 void bit_image_set_pixel_one(bit_image_t *bit_image, uint32_t x, uint32_t y);
 void bit_image_from_image(bit_image_t *bit_image, image_t *image, uint8_t threshold, uint8_t do_allocate);
+void bit_image_from_float_image(bit_image_t *bit_image, float_image_t *float_image, float threshold, uint8_t do_allocate);
 void bit_image_invert(bit_image_t *bit_image);
 void bit_image_remove_all(bit_image_t *bit_image, bit_image_t *to_remove);
 void bit_image_add_all(bit_image_t *bit_image, bit_image_t *to_add);
