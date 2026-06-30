@@ -1,0 +1,2 @@
+add_executable(test_float_array_merge_sort test_float_array_merge_sort.c)
+target_link_libraries(test_float_array_merge_sort PRIVATE c_fingerprint_identification_lib)
